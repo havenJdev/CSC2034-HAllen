@@ -1,0 +1,3 @@
+C:/Users/doggl/Desktop/CSC2034-HAllen/helloworld/cmake-build-debug/CMakeFiles/helloworld.dir
+C:/Users/doggl/Desktop/CSC2034-HAllen/helloworld/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/doggl/Desktop/CSC2034-HAllen/helloworld/cmake-build-debug/CMakeFiles/rebuild_cache.dir
