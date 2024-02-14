@@ -3,5 +3,4 @@ project(creditCardValidator)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(creditCardValidator creditCardValidation.cpp
-        creditCardValidation.cpp)
+add_executable(creditCardValidator creditCardValidation.cpp)

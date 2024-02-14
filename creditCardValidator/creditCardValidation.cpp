@@ -32,46 +32,44 @@ int getSize(unsigned long long int);
 unsigned long int getPrefix(unsigned long long int number, int k);
 
 int main() {
-    unsigned long long int ccNum; //--is valid; 4388576018402626--is invalid ;
+    unsigned long long int ccNum;
     char stopChar = 'y';
     do {
-        cout << "Enter a credit card number: ";
+        cout << endl << "Enter a credit card number: ";
         cin >> ccNum;
         cout << endl << ccNum << ((isValid(ccNum)) ? " is" : " is not") << " a valid credit card number." << endl;
         cout << "Enter another number? (y/n): ";
         cin >> stopChar;
-    } while (stopChar == 'y' && stopChar != 'n');
+    } while (stopChar != 'n');
 }
 
 bool isValid(unsigned long long int num) {
-//    if(getSize(num) >= 13 && getSize(num) <= 16 &&
-//        (getPrefix(num, 1) == 4 || getPrefix(num,1) == 5
-//        || getPrefix(num,1) == 6 || getPrefix(num,2) == 37))
-//        {
+    if(getSize(num) >= 13 && getSize(num) <= 16 && (prefixMatched(num, 4) || prefixMatched(num, 5)
+    || prefixMatched(num, 6) || prefixMatched(num, 37)))
+        {
             return (sumOfOddPlace(num) + sumOfDoubleEvenPlace(num)) % 10 == 0;
-//        }49927398716
-//    return false;
+        }
+    return false;
 }
 
 
 int sumOfDoubleEvenPlace(unsigned long long int number){
     int sum = 0;
-    int digitPosition = (getSize(number) % 2 == 0) ? 1 : 0;
+    int position = 1;  // Variable to keep track of the position of the digit
 
     while (number > 0) {
         int digit = number % 10;
 
-        digit = getDigit(digit * 2);
+        if (position % 2 == 0) {
+            digit *= 2;
 
-        // Add the digit to the sum if it is at an odd position
-        if (digitPosition % 2 == 0) {
-            sum += digit;
+            // If the doubling results in a two-digit number, add up the two digits
+            digit = getDigit(digit);
+
+            sum += digit;  // Add the digit to the sum
         }
 
-        // Move to the next digit position
-        digitPosition++;
-
-        // Remove the processed digit
+        position++;
         number /= 10;
     }
 
@@ -89,21 +87,16 @@ int getDigit(int number){
 
 int sumOfOddPlace(unsigned long long int number) {
     int sum = 0;
-    int digitPosition = (getSize(number) % 2 == 0) ? 1 : 0;
-//    int digitPosition = 1; // Initialize to 1 for the rightmost digit
+    int position = 1;  // Variable to keep track of the position of the digit
 
     while (number > 0) {
         int digit = number % 10;
 
-        // Add the digit to the sum if it is at an odd position
-        if (digitPosition % 2 != 0) {
-            sum += digit;
+        if (position % 2 != 0) {
+            sum += digit;  // Add the odd-placed digit to the sum
         }
 
-        // Move to the next digit position
-        digitPosition++;
-
-        // Remove the processed digit
+        position++;
         number /= 10;
     }
 
@@ -111,10 +104,10 @@ int sumOfOddPlace(unsigned long long int number) {
 }
 
 bool prefixMatched(unsigned long long int number, int d){
-    if(abs(d) >= 10){
-        return getPrefix(number, 2) == abs(d);
+    if(d >= 10){
+        return getPrefix(number, 2) == d;
     } else {
-        return getPrefix(number, 1) == abs(d);
+        return getPrefix(number, 1) == d;
     }
 }
 
